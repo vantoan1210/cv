@@ -1,0 +1,6 @@
+D:\WebDecor\Web\DataAccess\bin\Debug\DataAccess.dll
+D:\WebDecor\Web\DataAccess\bin\Debug\DataAccess.pdb
+D:\WebDecor\Web\DataAccess\obj\Debug\DataAccess.csproj.AssemblyReference.cache
+D:\WebDecor\Web\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
+D:\WebDecor\Web\DataAccess\obj\Debug\DataAccess.dll
+D:\WebDecor\Web\DataAccess\obj\Debug\DataAccess.pdb

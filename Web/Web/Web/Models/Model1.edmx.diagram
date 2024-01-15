@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fb8c9fccb2c041a8994e2eac1cc7d2ba" Name="Diagram1">
+        <EntityTypeShape EntityType="WebDecorModel.Admin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDecorModel.DanhMucSanPham" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDecorModel.LoaiSanPham" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDecorModel.SanPham" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDecorModel.User" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDecorModel.DonHang" Width="1.5" PointX="2.625" PointY="3.25" />
+        <EntityTypeShape EntityType="WebDecorModel.GiaoDich" Width="1.5" PointX="4.625" PointY="3.25" />
+        <EntityTypeShape EntityType="WebDecorModel.ChiTietSanPham" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="WebDecorModel.ThongTinKhachHang" Width="1.5" PointX="6.875" PointY="3.25" />
+        <EntityTypeShape EntityType="WebDecorModel.GioHang" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WebDecorModel.ChiTietGiaoDich" Width="1.5" PointX="3.375" PointY="6.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

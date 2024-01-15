@@ -1,0 +1,236 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/Content/images/favicon.png">
+    <title>DecorShop</title>
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700,500italic,100italic,100' rel='stylesheet' type='text/css'>
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/css/flexslider.css" type="text/css" media="screen" />
+    <link href="~/Content/css/sequence-looptheme.css" rel="stylesheet" media="all" />
+    <link href="~/Content/css/style.css" rel="stylesheet">
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet">
+    <!--[if lt IE 9]><script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script><script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script><![endif]-->
+    <style>
+        .run-customer td {
+            text-align: center;
+        }
+
+        .run-customer h6 {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body id="home" style="background: none">
+    <div class="wrapper">
+        <div class="header" style="position: fixed; top: 0; left: 0; z-index: 999; background: #383837;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2 col-sm-2">
+                        <div class="logo"><a href="@Url.Action("Index", "Home")"><img src="~/Content/images/logo3.png" alt="FlatShop"></a></div>
+                    </div>
+                    <div class="col-md-10 col-sm-10">
+                        <div class="header_top">
+                            <div class="row">
+                                <div class="col-md-9" style="padding-top: 15px;">
+                                    <form id="searchForm" action="@Url.Action("ShopList", "Home")" method="get">
+                                        <input style="min-width: 81%; margin-left: 2%;" placeholder="Nhập tên sản phẩm..." type="text" value="" name="search" id="searchInput">
+                                        <input style="padding: 9px 20px;" type="button" value="Tìm Kiếm" class="button" onclick="submitForm()">
+                                    </form>
+                                </div>
+                                <script>
+                                    function submitForm() {
+                                        var searchInput = document.getElementById('searchInput').value;
+                                        if (searchInput.trim() !== "") {
+                                            document.getElementById('searchForm').submit();
+                                        } else {
+                                            alert('Vui lòng nhập từ khóa tìm kiếm.');
+                                        }
+                                    }
+                                </script>
+                                <div class="col-md-3">
+                                    @if (Session["UserID"] != null)
+                                    {
+                                        <ul class="usermenu" style="padding-right: 30px; padding-top: 25px;">
+                                            <li><a href="@Url.Action("Index", "KhachHang", new { id = Session["UserID"] })" class="log" style=" margin-right: 20px;">Người dùng</a></li>
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                        <ul class="usermenu" style="padding-right: 30px; padding-top: 25px;">
+                                            <li><a href="@Url.Action("DangNhap", "KhachHang")" class="log">Login</a></li>
+                                            <li><a href="@Url.Action("DangKi", "KhachHang")" class="reg">Register</a></li>
+                                        </ul>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="header_bottom">
+                            <ul class="option" style="margin-top: 10px; margin-right: 45px;">
+                                <li class="option-cart" onclick="Cart(event)">
+                                    @if (Session["UserID"] == null)
+                                    {
+                                        <a href="#" class="cart-icon">
+                                            cart
+                                            <span class="cart_no"></span>
+                                        </a>
+                                        <script>
+                                            function Cart(event) {
+                                                event.preventDefault();
+                                                alert('Cần đăng nhập để thực hiện hành động này');
+                                            }
+                                        </script>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("ThongTinThanhToan", "KhachHang", new { id = Session["UserID"] })" class="cart-icon">
+                                            cart
+                                            @if (ViewBag.giohang == null)
+                                            {<span class="cart_no"></span>}
+                                            else
+                                            {<span class="cart_no">@ViewBag.giohang</span>}
+                                        </a>
+                                    }
+                                </li>
+                            </ul>
+                            <div style="display:flex;">
+                                <div class="navbar-collapse collapse" style="padding: 10px 0 10px 0;">
+                                    <ul class="nav navbar-nav">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa-solid fa-bars" style="margin-right: 10px;"></i>Danh Mục Sản Phẩm</a>
+                                            <div class="dropdown-menu">
+                                                <ul class="mega-menu-links">
+                                                    <li><a href="@Url.Action("ShopList", "Home", new { madanhmuc = 1 })">Đồ decor phòng khách</a></li>
+                                                    <li><a href="@Url.Action("ShopList", "Home", new { madanhmuc = 2 })">Đồ decor phòng ngủ</a></li>
+                                                    <li><a href="@Url.Action("ShopList", "Home", new { madanhmuc = 3 })">Decor phong thủy</a></li>
+                                                    <li><a href="@Url.Action("ShopList", "Home", new { madanhmuc = 5 })">Decor để bàn</a></li>
+                                                    <li><a href="@Url.Action("ShopList", "Home", new { madanhmuc = 6 })">Decor treo tườngh</a></li>
+                                                    <li><a href="@Url.Action("ShopList", "Home", new { madanhmuc = 7 })">Bàn console</a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li @(Request.Path == "/Home/ShopList" ? "class=active" : " ")>@Html.ActionLink("Shop", "ShopList", "Home")</li>
+                                        <li @(Request.Path == "/Home/GioiThieu" ? "class=active" : "")>@Html.ActionLink("Giới thiệu", "GioiThieu", "Home")</li>
+                                        <li @(Request.Path == "/Home/LienHe" ? "class=active" : "")>@Html.ActionLink("Liên Hệ", "LienHe", "Home")</li>
+                                        <li @(Request.Path == "/Home/ChinhSachBanHang" ? "class=active" : "")>@Html.ActionLink("Chính sách bán hàng", "ChinhSachBanHang", "Home")</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix" style="margin-bottom:125px;"></div>
+        @RenderBody()
+        <div class="clearfix"></div>
+        <div class="footer">
+            <div class="footer-info">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="footer-logo" style="bottom:25px" ;><a href="#"><img src="~/Content/images/logo3.png" alt=""></a></div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <h4 class="title">Thông Tin Liên Lạc</h4>
+                            <p>Hà Đông, Hà Nội, Việt Nam</p>
+                            <p>Số Điện Thoại : 0912114296</p>
+                            <p>Email : 2021050262@student.humg.edu.vn</p>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <h4 class="title">Hỗ Trợ Khách Hàng</h4>
+
+                            <ul class="support">
+                                <li><a href="#">Phương Thức Thanh Toán</a></li>
+                                <li><a href="#">Thông Tin</a></li>
+                                <li><a href="@Url.Action("ChinhSachBanHang", "Home")">Chính sách bán hàng</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <h4 class="title">Nhận Thông Tin Từ Chúng Tôi</h4>
+                            <form class="newsletter">
+                                <input type="text" name="" placeholder="Nhập vào email....">
+                                <input type="submit" value="Đăng kí" class="button">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-info">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="social-icon">
+                                <li><a href="#" class="linkedin"></a></li>
+                                <li><a href="#" class="google-plus"></a></li>
+                                <li><a href="#" class="twitter"></a></li>
+                                <li><a href="#" class="facebook"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript==================================================-->
+    <script type="text/javascript" src="~/Content/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="~/Content/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery.sequence-min.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery.carouFredSel-6.2.1-packed.js"></script>
+    <script defer src="~/Content/js/jquery.flexslider.js"></script>
+    <script type="text/javascript" src="~/Content/js/script.min.js"></script>
+    @if (Session["UserID"] == null)
+    {
+        <script>
+            function addToCart() {
+                alert('Cần đăng nhập để thực hiện hành động này');
+            }
+        </script>
+    }
+    else
+    {
+        <script>
+            function addToCart(sanPhamID) {
+                $.ajax({
+                    url: '@Url.Action("AddToCart", "Home")',
+                    type: 'POST',
+                    data: { sanPhamID: sanPhamID },
+                    success: function (result) {
+                        alert("Sản phẩm đã được thêm vào giỏ hàng.");
+                    },
+                    error: function () {
+                        alert("Đã xảy ra lỗi khi thêm vào giỏ hàng.");
+                    }
+                });
+                return false;
+            };
+
+            function AddToCarts(sanPhamID, soLuong) {
+                $.ajax({
+                    url: '@Url.Action("AddToCarts", "Home")',
+                    type: 'POST',
+                    data: { sanPhamID: sanPhamID, soLuong: soLuong },
+                    success: function (result) {
+                        alert("Sản phẩm đã được thêm vào giỏ hàng.");
+                    },
+                    error: function (error) {
+                        alert("Đã xảy ra lỗi khi thêm vào giỏ hàng.");
+                    }
+                });
+            }
+        </script>
+    }
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

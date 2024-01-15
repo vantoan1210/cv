@@ -1,0 +1,130 @@
+﻿<div class="container">
+    <h6>
+        <a href="@Url.Action("Index", "Home")">Trang Chu </a> / <a href="@Url.Action("ShopList", "Home")">Shop</a> / @if (ViewBag.tenDm != null)
+        {@ViewBag.tenDm.TenDanhMuc}
+    else if (ViewBag.tenLoai != null)
+    { @ViewBag.tenLoai.Name}
+    </h6>
+</div>
+<div class="container_fullwidth" style="padding:0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="category leftbar">
+                    <h3 class="title">
+                        Danh Mục Sản Phẩm
+                    </h3>
+                    <ul>
+                        @foreach (var dmSanPham in ViewBag.listDMSanPham)
+                        {
+                            <li>
+                                <a href="@Url.Action("Shop", "Home", new { madanhmuc = dmSanPham.ID })">
+                                    @dmSanPham.TenDanhMuc
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="clearfix">
+                </div>
+                <div class="branch leftbar">
+                    <h3 class="title">
+                        Loại Sản Phẩm
+                    </h3>
+                    <ul>
+                        @foreach (var loaiSP in ViewBag.listLoaiSP)
+                        {
+                            <li>
+                                <a href="@Url.Action("Shop", "Home", new { maLoaiSP = loaiSP.ID })">
+                                    @loaiSP.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="clearfix">
+                </div>
+                <div class="leftbanner">
+                    <img src="images/banner-small-01.png" alt="">
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="banner">
+                    <div class="bannerslide" id="bannerslide">
+                        <ul class="slides">
+                            <li>
+                                <a href="#">
+                                    <img src="images/banner-01.jpg" alt="" />
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="images/banner-02.jpg" alt="" />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix">
+                </div>
+                <div class="products-grid">
+                    <div class="toolbar">
+                        <div class="sorter" style=" width: 100%;">
+                            <div class="sort-by">
+                                <h5><strong>Danh Sách Sản Phẩm</strong></h5>
+                            </div>
+                            <div class="view-mode" style="float: right; display: flex; ">
+                                <p style=" line-height: 20px; margin-right: 19px;">Kiểu hiển thị: </p>
+                                <a href="@Url.Action("ShopList", "Home")" class="list">
+                                    List
+                                </a>
+                                <a href="#" class="grid active">
+                                    Grid
+                                </a>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                        <div class="row">
+                            @foreach (var sanPham in @ViewBag.listSanPham)
+                            {
+                                if (sanPham.SoLuong != 0)
+                                {
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="products">
+                                            <div class="thumbnail" style="margin: 7px 0 5px 0;">
+                                                <a href="@Url.Action("ThongTinSanPham", "Home", new {ID = sanPham.ID})">
+                                                    <img style="border-radius: 10px;" src="~/Content/images/SP/@sanPham.LinkHinhAnh" alt="Product Name">
+                                                </a>
+                                            </div>
+                                            <div class="productname" style="padding-top: 70px; height: 100px; letter-spacing: 1px; line-height: 19px;">
+                                                @sanPham.Name
+                                            </div>
+                                            @{
+                                                string formattedPrice = string.Format("{0:N0}", sanPham.Gia);
+                                            }
+                                            <h4 class="price">
+                                                @formattedPrice₫
+                                            </h4>
+                                            <div class="button_group">
+                                                <button class="button add-cart" type="button" onclick="addToCart(@sanPham.ID)">Thêm vào giỏ</button>
+                                                <button class="button wishlist" type="button" onclick="addToCart()">
+                                                    <i class="fa fa-heart-o">
+                                                    </i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+            </div>
+        </div>
+    </div>
+

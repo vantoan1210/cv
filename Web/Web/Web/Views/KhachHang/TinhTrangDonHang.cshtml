@@ -1,0 +1,67 @@
+﻿<div class="container_fullwidth">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="checkout-page">
+                    <ol class="checkout-steps">
+                        <li class="steps">
+                            <a href="@Url.Action("Index", "KhachHang", new { id = Session["UserID"] })" class="step-title" style="font-weight:bold;">
+                                Thông tin người dùng
+                            </a>
+                        </li>
+                        <li class="steps">
+                            <a href="@Url.Action("ThongTinThanhToan", "KhachHang", new { id = Session["UserID"] })" class="step-title" style="font-weight:bold;">
+                                Thông tin thanh toán
+                            </a>
+                        </li>
+                        <li class="steps active">
+                            <a href="#" class="step-title" style="font-weight:bold;">
+                                Tình trạng đơn hàng
+                            </a>
+                            <div class="step-description">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-8">
+                                        <div class="run-customer">
+                                            <h5>
+                                                Thêm thông tin:
+                                            </h5>
+                                            <form>
+                                                <div class="form-row">
+                                                    <label class="lebel-abs">
+                                                        Tên người nhận:
+                                                    </label>
+                                                    <input style="padding: 10px 25px 10px 150px;" type="text" class="input namefild" name="" required>
+                                                </div>
+                                                <div class="form-row">
+                                                    <label class="lebel-abs">
+                                                        Số Điện Thoại
+                                                    </label>
+                                                    <input style="padding: 10px 25px 10px 150px;" type="text" class="input namefild" name="" required>
+                                                </div>
+                                                <div class="form-row">
+                                                    <label class="lebel-abs">
+                                                        Email
+                                                    </label>
+                                                    <input style="padding: 10px 25px 10px 150px;" type="text" class="input namefild" name="" required>
+                                                </div>
+                                                <div class="form-row">
+                                                    <label class="lebel-abs">
+                                                        Địa chỉ nhận hàng:
+                                                    </label>
+                                                    <input style="padding: 10px 25px 10px 150px;" type="text" class="input namefild" name="" required>
+                                                </div>
+                                                <button>
+                                                    Lưu
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

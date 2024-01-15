@@ -1,0 +1,143 @@
+﻿<div class="container">
+    <h6>
+        <a href="@Url.Action("Index", "Home")">Trang Chủ </a> / <a href="@Url.Action("ShopList", "Home")">Shop</a> / @if (ViewBag.tenDm != null)
+        {@ViewBag.tenDm.TenDanhMuc}
+    else if (ViewBag.tenLoai != null)
+    { @ViewBag.tenLoai.Name}
+    </h6>
+</div>
+<div class="container_fullwidth" style="padding:0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="category leftbar">
+                    <h3 class="title">
+                        Danh Mục Sản Phẩm
+                    </h3>
+                    <ul>
+                        @foreach (var dmSanPham in ViewBag.listDMSanPham)
+                        {
+                            <li>
+                                <a href="@Url.Action("ShopList", "Home", new { madanhmuc = dmSanPham.ID })">
+                                    @dmSanPham.TenDanhMuc
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="clearfix">
+                </div>
+                <div class="branch leftbar">
+                    <h3 class="title">
+                        Loại Sản Phẩm
+                    </h3>
+                    <ul>
+                        @foreach (var loaiSP in ViewBag.listLoaiSP)
+                        {
+                            <li>
+                                <a href="@Url.Action("ShopList", "Home", new { maLoaiSP = loaiSP.ID })">
+                                    @loaiSP.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="clearfix">
+                </div>
+                <div class="leftbanner">
+                    <img src="images/banner-small-01.png" alt="">
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="banner">
+                    <div class="bannerslide" id="bannerslide">
+                        <ul class="slides">
+                            <li>
+                                <a href="#">
+                                    <img src="images/banner-01.jpg" alt="" />
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="images/banner-02.jpg" alt="" />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix">
+                </div>
+                <div class="products-grid">
+                    <div class="toolbar">
+                        <div class="sorter" style=" width: 100%;">
+                            <div class="sort-by">
+                                <h5><strong>Danh Sách Sản Phẩm</strong></h5>
+                            </div>
+                            <div class="view-mode" style="float: right; display: flex; ">
+                                <p style=" line-height: 20px; margin-right: 19px;">Kiểu hiển thị: </p>
+                                <a href="productlitst.html" class="list active">
+                                    List
+                                </a>
+                                <a href="@Url.Action("Shop", "Home")" class="grid">
+                                    Grid
+                                </a>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                        <ul class="products-listItem">
+                            @if (@ViewBag.listSanPham != null)
+                            {
+                                foreach (var sanPham in @ViewBag.listSanPham)
+                                {
+                                    <li class="products">
+                                        <div class="thumbnail" style="padding: 0;">
+                                            <a href="@Url.Action("ThongTinSanPham", "Home", new { ID = sanPham.ID })"><img style="max-width: 110%;border-radius:10px;" src="~/Content/images/SP/@sanPham.LinkHinhAnh" alt="Ten san Pham"></a>
+                                        </div>
+                                        <div class="product-list-description">
+                                            <div class="productname" style="padding-bottom: 20px;">
+                                                @sanPham.Name
+                                            </div>
+                                            <p>
+                                                @Html.Raw(sanPham.MoTa.Length > 250 ? sanPham.MoTa.Substring(0, 250) + "..." : sanPham.MoTa)
+                                            </p>
+                                            <div class="list_bottom">
+                                                <div class="price">
+                                                    @{
+                                                        string formattedPrice = string.Format("{0:N0}", sanPham.Gia);
+                                                    }
+                                                    <span class="new_price">
+                                                        @formattedPrice
+                                                        <sup>
+                                                            ₫
+                                                        </sup>
+                                                    </span>
+                                                </div>
+                                                <div class="button_group">
+                                                    <button class="button add-cart" type="button" onclick="addToCart(@sanPham.ID)">Thêm vào giỏ</button>
+                                                    <button class="button favorite" onclick="addToCart()">
+                                                        <i class="fa fa-heart-o">
+                                                        </i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                 <li> Không có sản phẩm trong giỏ hàng</li>
+                            }
+                        </ul>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+            </div>
+        </div>
+    </div>
+</div>
+

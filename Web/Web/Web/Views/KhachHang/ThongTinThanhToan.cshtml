@@ -1,0 +1,89 @@
+﻿<div class="container_fullwidth">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="checkout-page">
+                    <ol class="checkout-steps">
+                        <li class="steps">
+                            <a href="@Url.Action("Index", "KhachHang", new { id = Session["UserID"] })" class="step-title" style="font-weight:bold;">
+                                Thông tin người dùng
+                            </a>
+                        </li>
+                        <li class="steps active">
+                            <a href="#" class="step-title" style="font-weight:bold;">
+                                Thông tin thanh toán
+                            </a>
+                            <div class="step-description">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-8" style="width: 100%;">
+                                        <div class="run-customer">
+                                            <div style="display:flex;justify-content:space-between;"><h6 style="margin-bottom: 15px;">Sản phẩm của bạn:</h6> <h6> <a href="@Url.Action("ShopList", "Home")">Tới trang sản phẩm</a></h6></div>
+                                            <table class="table w-100">
+                                                <tr style="border:1px solid #ccc;">
+                                                    <td style="font-weight:bold; width: 25%;">Sản Phẩm</td>
+                                                    <td style="font-weight:bold;">Giá </td>
+                                                    <td style="font-weight:bold;">Số Lượng</td>
+                                                    <td style="font-weight:bold;">Tổng Tiền</td>
+                                                </tr>
+                                                @{
+                                                    decimal totalSanPham = 0m;
+                                                }
+                                                @foreach (var sanpham in ViewBag.sanPhams)
+                                                {
+                                                    var index = ViewBag.sanPhams.IndexOf(sanpham);
+                                                    var giohang = ViewBag.gh[index];
+
+                                                    <tr>
+                                                        <td>
+                                                            <form method="post" action="@Url.Action("RemoveFromCart", "KhachHang")">
+                                                                <input type="hidden" name="ID" value="@giohang.ID" />
+                                                                <input type="submit" value="Xóa" style="float:left; border: 1px solid #ccc; border-radius: 50%; padding: 5px;" aria-hidden="true" />
+                                                            </form>
+                                                            <a href="@Url.Action("ThongTinSanPham", "Home", new {ID = sanpham.ID})">@sanpham.Name</a>
+                                                        </td>
+                                                        @{
+                                                            string formattedPrice = string.Format("{0:N0}", sanpham.Gia);
+                                                            string totalPrice = string.Format("{0:N0}₫", giohang.SoLuong * sanpham.Gia);
+                                                            decimal total = (decimal)giohang.SoLuong * (decimal)sanpham.Gia;
+                                                            totalSanPham += total;
+                                                        }
+                                                        <td>@formattedPrice₫</td>
+                                                        <td>@giohang.SoLuong</td>
+                                                        <td>@totalPrice</td>
+                                                    </tr>
+                                                }
+                                            </table>
+                                            <h6>Tổng tiền của tất cả sản phẩm là: <strong style="color: red; font-weight: bold; margin-left: 10px;">@string.Format("{0:N0}₫", totalSanPham)</strong></h6><br />
+
+                                            <div class="col-md-12">
+                                                <div class="col-md-12">
+                                                    <form action="@Url.Action("LuuThongTinThanhToan", "KhachHang")" method="post">
+                                                        <h6>THÔNG TIN THANH TOÁN:</h6>
+                                                        <input style="width: 70%; height: 37px; margin:10px" name="hotennguoinhan" type="text" placeholder="Họ và tên người nhận ..." required /><br />
+                                                        <input style="width: 70%; height: 37px; margin: 10px" name="diachi" type="text" placeholder="Địa chỉ giao hàng ..." required /><br />
+                                                        <input style="width: 70%; height: 37px; margin: 10px" name="sodienthoai" type="text" placeholder="Số điện thoại ..." required /><br />
+                                                        <input style="width: 70%; height: 37px; margin: 10px" name="ghichu" type="text" placeholder="Ghi chú..." /><br />
+                                                        <input type="hidden" name="tongtien" id="hiddenTongTien" value="@totalSanPham" />
+                                                        <h6>Phương thức thanh toán:</h6>
+                                                        <input style="margin: 10px 15px" name="phuongthucthanhtoan" type="radio" value="chuyenkhoan" /> Chuyển khoản ngân hàng
+                                                        <br />
+                                                        <input style="margin: 10px 15px" name="phuongthucthanhtoan" type="radio" value="thanhtoantienmat" checked/> Thanh toán tiền mặt
+                                                        <br /><input style="margin: 20px 10px; background:none;border-radius:5px;padding:10px;" type="submit" value="Thanh Toán" />
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                    <form action="@Url.Action("DangXuat", "KhachHang")" method="post">
+                        <input style="padding: 9px 20px;" type="submit" value="Đăng xuất" class="button">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

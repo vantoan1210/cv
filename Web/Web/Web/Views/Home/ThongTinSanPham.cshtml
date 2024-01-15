@@ -1,0 +1,381 @@
+﻿@{
+    int tongSanPham = 0;
+    int gioiHan = 9;
+}
+<div class="container">
+    <h6>
+        <a href="@Url.Action("Index", "Home")">Trang Chủ </a> / Thông Tin Sản Phẩm
+    </h6>
+</div>
+<div class="container_fullwidth" style="padding: 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="products-details">
+                    <div class="preview_image">
+                        <div class="preview-small" style="text-align: center; display: flex; justify-content: center; align-items: center;">
+                            <img id="mainImage" style="border-radius: 10px" src="~/Content/images/SP/@ViewBag.sanPham.LinkHinhAnh" alt="">
+                        </div>
+                        <div class="thum-image">
+                           
+                        </div>
+                    </div>
+                    <script>
+                        function changeMainImage(element) {
+                            var mainImage = document.getElementById("mainImage");
+                            mainImage.src = element.getAttribute("data-image");
+                        }
+                    </script>
+                    <div class="products-description">
+                        <h5 class="name">
+                            @ViewBag.sanPham.Name
+                        </h5>
+                        <p>
+                            Chất Lượng: <strong style="color:red;">@ViewBag.sanPham.ChatLuong</strong>
+                        </p>
+                        <p>
+                            Trạng Thái:
+                            @if (@ViewBag.sanPham.SoLuong > 0)
+                            {
+                                <span class=" light-red">
+                                    Còn Hàng
+                                </span>
+                            }
+                            else
+                            {
+                                <span class=" light-red">
+                                    Hết Hàng
+                                </span>
+                            }
+                        </p>
+                        <p>
+                            Tag: <a style="color:red;" href="@Url.Action("ShopList", "Home", new { madanhmuc = @ViewBag.dmSanPham.ID })">@ViewBag.dmSanPham.TenDanhMuc</a>, <a style="color:red;" href="@Url.Action("ShopList", "Home", new { maLoaiSP = @ViewBag.loaiSanPham.ID })">@ViewBag.loaiSanPham.Name</a>
+                        </p>
+                        <hr class="border">
+                        <div class="price">
+                            Giá :
+                            @if (@ViewBag.sanPham.GiamGia == 0)
+                            {
+                                <span class="new_price">
+                                    @{
+                                        string formattedPrice = string.Format("{0:N0}", @ViewBag.sanPham.Gia);
+                                    }
+                                    @formattedPrice₫
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="new_price">
+                                    @{
+                                        double GiaSauKhiGiam = @ViewBag.sanPham.Gia - (@ViewBag.sanPham.Gia * @ViewBag.sanPham.GiamGia / 100);
+                                        string formatGiaSauKhiGiam = string.Format("{0:N0}", GiaSauKhiGiam);
+                                    }
+                                    @formatGiaSauKhiGiam₫
+                                </span>
+                                <span class="old_price">
+                                    @{
+                                        string formattedPrice = string.Format("{0:N0}", @ViewBag.sanPham.Gia);
+                                    }
+                                    @formattedPrice₫
+                                </span>
+                            }
+                        </div>
+                        <hr class="border">
+                        @if (@ViewBag.sanPham.SoLuong > 0)
+                        {
+                            <div class="wided">
+                                <div class="qty">
+                                    Sản Phẩm :
+                                    <select id="soLuongDropdown">
+                                        @for (int i = 1; i <= @ViewBag.sanPham.SoLuong; i++)
+                                        {
+                                            <option>
+                                                @i
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="button_group">
+                                    <button class="button" onclick="console.log('@ViewBag.sanPham.ID', document.getElementById('soLuongDropdown').value); AddToCarts(@ViewBag.sanPham.ID, document.getElementById('soLuongDropdown').value)">
+                                        Thêm Vào Giỏ
+                                    </button>
+                                    <button class="button favorite" onclick="addToCart()">
+                                        <i class="fa fa-heart-o">
+                                        </i>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="qty">
+                                <p>Đã Hết Hàng Vui Lòng Quay Lại Sau Hoặc Gửi Email Để Nhân Thông Tin Về Sản Phẩm Khi Có Hàng.</p>
+                            </div>
+                        }
+                        <div class="clearfix">
+                        </div>
+                        <hr class="border">
+                        <img src="images/share.png" alt="" class="pull-right">
+                    </div>
+                </div>
+                <div class="clearfix">
+                </div>
+                <div class="tab-box">
+                    <div id="tabnav">
+                        <ul>
+                            <li>
+                                <a href="#Descraption">
+                                    Mô Tả
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#Reviews">
+                                    Đánh Giá
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content-wrap">
+                        <div class="tab-content" id="Descraption">
+                            <p style="font-size: 14px;">@ViewBag.sanPham.MoTa</p>
+                        </div>
+                        <div class="tab-content" id="Reviews">
+                            <form>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                &nbsp;
+                                            </th>
+                                            <th>
+                                                1 Sao
+                                            </th>
+                                            <th>
+                                                2 Sao
+                                            </th>
+                                            <th>
+                                                3 Sao
+                                            </th>
+                                            <th>
+                                                4 Sao
+                                            </th>
+                                            <th>
+                                                5 Sao
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                Đánh Giá
+                                            </td>
+                                            <td>
+                                                <input type="radio" name="quality" value="Blue" />
+                                            </td>
+                                            <td>
+                                                <input type="radio" name="quality" value="">
+                                            </td>
+                                            <td>
+                                                <input type="radio" name="quality" value="">
+                                            </td>
+                                            <td>
+                                                <input type="radio" name="quality" value="">
+                                            </td>
+                                            <td>
+                                                <input type="radio" name="quality" value="">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-row">
+                                            <label class="lebel-abs">
+                                                Họ Tên:
+                                                <strong class="red">
+                                                    *
+                                                </strong>
+                                            </label>
+                                            <input style="padding-left: 135px;" type="text" name="" class="input namefild">
+                                        </div>
+                                        <div class="form-row">
+                                            <label class="lebel-abs">
+                                                Email:
+                                                <strong class="red">
+                                                    *
+                                                </strong>
+                                            </label>
+                                            <input style="padding-left: 135px;" type="email" name="" class="input emailfild">
+                                        </div>
+                                        <div class="form-row">
+                                            <label class="lebel-abs">
+                                                Số điện thoại:
+                                                <strong class="red">
+                                                    *
+                                                </strong>
+                                            </label>
+                                            <input style="padding-left: 135px;" type="text" name="" class="input summeryfild">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-row">
+                                            <label class="lebel-abs">
+                                                Nội dung đánh giá:
+                                                <strong class="red">
+                                                    *
+                                                </strong>
+                                            </label>
+                                            <textarea class="input textareafild" name="" rows="7">
+                                            </textarea>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="submit" value="Gửi" class="button">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-content">
+                            <div class="review">
+                                <p class="rating">
+                                    <i class="fa fa-star light-red">
+                                    </i>
+                                    <i class="fa fa-star light-red">
+                                    </i>
+                                    <i class="fa fa-star light-red">
+                                    </i>
+                                    <i class="fa fa-star-half-o gray">
+                                    </i>
+                                    <i class="fa fa-star-o gray">
+                                    </i>
+                                </p>
+                                <h5 class="reviewer">
+                                    Reviewer name
+                                </h5>
+                                <p class="review-date">
+                                    Date: 01-01-2014
+                                </p>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a eros neque. In sapien est, malesuada non interdum id, cursus vel neque.
+                                </p>
+                            </div>
+                            <div class="review">
+                                <p class="rating">
+                                    <i class="fa fa-star light-red">
+                                    </i>
+                                    <i class="fa fa-star light-red">
+                                    </i>
+                                    <i class="fa fa-star light-red">
+                                    </i>
+                                    <i class="fa fa-star-half-o gray">
+                                    </i>
+                                    <i class="fa fa-star-o gray">
+                                    </i>
+                                </p>
+                                <h5 class="reviewer">
+                                    Reviewer name
+                                </h5>
+                                <p class="review-date">
+                                    Date: 01-01-2014
+                                </p>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a eros neque. In sapien est, malesuada non interdum id, cursus vel neque.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix">
+                </div>
+                <div id="productsDetails" class="hot-products">
+                    <h3 class="title">
+                        Sản Phẩm <strong>Nổi Bật</strong>
+                    </h3>
+                    <ul id="hot">
+                        <li>
+                            <div class="row">
+                                @foreach (var sanPham in @ViewBag.listSanPham)
+                                {
+
+                                    if (gioiHan > tongSanPham)
+                                    {
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="products">
+                                                @if (sanPham.GiamGia != 0)
+                                                {
+                                                    <div class="offer">-@sanPham.GiamGia%</div>
+                                                }
+                                                <div class="thumbnail" style="margin: 7px 0 5px 0;"><a href="@Url.Action("ThongTinSanPham", "Home", new { ID = sanPham.ID })"><img style="border-radius: 10px;" src="~/Content/images/SP/@sanPham.LinkHinhAnh" alt="Ten San Pham"></a></div>
+                                                <div class="productname" style="padding-top: 70px; height: 100px;">@sanPham.Name</div>
+                                                @{
+                                                    string formattedPrice = string.Format("{0:N0}", sanPham.Gia);
+                                                }
+                                                <h4 class="price">@formattedPrice₫</h4>
+                                                <div class="button_group"><button class="button add-cart" type="button" onclick="addToCart(@sanPham.ID)">Thêm vào giỏ</button><button class="button wishlist" type="button" onclick="addToCart()"><i class="fa fa-heart-o"></i></button></div>
+                                            </div>
+                                        </div>
+                                        tongSanPham++;
+                                    }
+                                }
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix">
+                </div>
+                @{
+                    tongSanPham = 0;
+                    int gioiHanUuDai = 3;
+                }
+            </div>
+            <div class="col-md-3">
+                <div class="special-deal leftbar">
+                    <h4 class="title">
+                        Ưu Đãi<strong> Đặc Biệt</strong>
+                    </h4>
+                    @foreach (var sanPham in @ViewBag.listSanPham)
+                    {
+                        if (gioiHanUuDai > tongSanPham && sanPham.GiamGia > 0)
+                        {
+                            <div class="special-item">
+                                <div class="product-image">
+                                    <a href="@Url.Action("ThongTinSanPham", "Home", new {ID = sanPham.ID})">
+                                        <img src="~/Content/images/SP/@sanPham.LinkHinhAnh" alt="">
+                                    </a>
+                                </div>
+                                <div class="product-info">
+                                    <p>
+                                        @sanPham.Name
+                                    </p>
+                                    @{
+                                        string formattedPrice = string.Format("{0:N0}", sanPham.Gia);
+                                    }
+                                    <h5 class="price">@formattedPrice₫</h5>
+                                </div>
+                            </div>
+                            tongSanPham++;
+                        }
+                    }
+                </div>
+                <div class="clearfix">
+                </div>
+                <div class="get-newsletter leftbar">
+                    <h4 class="title">
+                        Nhận <strong>Thông tin</strong>
+                    </h4>
+                    <p>
+                        Về Sản Phẩm:<strong> @ViewBag.sanPham.Name</strong>
+                    </p>
+                    <form>
+                        <input class="email" type="text" name="" placeholder="Nhập Email...">
+                        <input class="submit" type="submit" value="Gửi">
+                    </form>
+                </div>
+                <div class="clearfix">
+                </div>
+            </div>
+        </div>
+        <div class="clearfix">
+        </div>
+    </div>
+</div>

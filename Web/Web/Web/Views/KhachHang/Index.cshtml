@@ -1,0 +1,93 @@
+﻿<div class="container_fullwidth">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="checkout-page">
+                    <ol class="checkout-steps">
+                        <li class="steps active">
+                            <a href="#" class="step-title" style="font-weight:bold;">
+                                Thông tin người dùng
+                            </a>
+                            <div class="step-description">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-8">
+                                        <div class="run-customer">
+                                            <h5>Thêm thông tin:</h5>
+                                            @if (ViewBag.khachHang != null)
+                                            {
+                                                <form action="@Url.Action("CapNhatThongTinKhachHang", "KhachHang")" method="post">
+                                                    <div class="form-row">
+                                                        <label class="lebel-abs">
+                                                            Tên người nhận:
+                                                        </label>
+                                                        <input style="padding: 10px 25px 10px 150px;" type="text" class="input namefild" name="tenKhachHang" required value="@ViewBag.khachHang.TenKhachHang">
+                                                    </div><div class="form-row">
+                                                        <label class="lebel-abs">
+                                                            Số Điện Thoại
+                                                        </label>
+                                                        <input style="padding: 10px 25px 10px 150px;" type="text" class="input namefild" name="soDienThoai" required value="@ViewBag.khachHang.SoDienThoai">
+                                                    </div><div class="form-row">
+                                                        <label class="lebel-abs">
+                                                            Email
+                                                        </label>
+                                                        <input style="padding: 10px 25px 10px 150px;" type="text" class="input namefild" name="email" required value="@ViewBag.khachHang.Email">
+                                                    </div><div class="form-row">
+                                                        <label class="lebel-abs">
+                                                            Địa chỉ nhận hàng:
+                                                        </label>
+                                                        <input style="padding: 10px 25px 10px 150px;" type="text" class="input namefild" name="diaChiNhanHang" required value="@ViewBag.khachHang.DiaChiNhanHang">
+                                                    </div>
+                                                    <input style="padding: 9px 20px;" type="submit" value="Cập nhật thông tin" class="button">
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                        <form action="@Url.Action("LuuThongTinKhachHang", "KhachHang")" method="post">
+                                            <div class="form-row">
+                                                <label class="lebel-abs">
+                                                    Tên người nhận:
+                                                </label>
+                                                <input style="padding: 10px 25px 10px 150px;" type="text" class="input namefild" name="tenKhachHang" required>
+                                            </div><div class="form-row">
+                                                <label class="lebel-abs">
+                                                    Số Điện Thoại
+                                                </label>
+                                                <input id="soDienThoaiInput" style="padding: 10px 25px 10px 150px;" type="text" class="input namefild" name="soDienThoai" required>
+                                            </div><div class="form-row">
+                                                <label class="lebel-abs">
+                                                    Email
+                                                </label>
+                                                <input style="padding: 10px 25px 10px 150px;" type="text" class="input namefild" name="email" required>
+                                            </div><div class="form-row">
+                                                <label class="lebel-abs">
+                                                    Địa chỉ nhận hàng:
+                                                </label>
+                                                <input style="padding: 10px 25px 10px 150px;" type="text" class="input namefild" name="diaChiNhanHang" required>
+                                            </div>
+                                            <input style="padding: 9px 20px;" type="submit" value="Thêm thông tin" class="button">
+                                        </form>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="steps">
+                            <a href="@Url.Action("ThongTinThanhToan", "KhachHang", new { id = Session["UserID"] })" class="step-title" style="font-weight:bold;">
+                                Thông tin thanh toán
+                            </a>
+                        </li>
+                        @*<li class="steps">
+                            <a href="@Url.Action("TinhTrangDonHang", "KhachHang", new { id = Session["UserID"] })" class="step-title" style="font-weight:bold;">
+                                Tình trạng đơn hàng
+                            </a>
+                        </li>*@
+                    </ol>
+                    <form action="@Url.Action("DangXuat", "KhachHang")" method="post">
+                        <input style="padding: 9px 20px;" type="submit" value="Đăng xuất" class="button">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

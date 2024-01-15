@@ -1,0 +1,182 @@
+﻿@{
+    int tongSanPham = 0;
+    int gioiHan = 8;
+}
+@if (ViewBag.SuccessMessage != null)
+{
+    <script type="text/javascript">
+        alert('Đăng nhập thành công.');
+    </script>
+}
+@if (ViewBag.Success != null)
+{
+    <script type="text/javascript">
+        alert('Đăng xuất thành công.');
+    </script>
+}
+
+<div class="hom-slider">
+    <div class="container">
+        <div id="sequence">
+            <ul class="sequence-canvas">
+                <li class="animate-in">
+                    <img src="~/Content/images/paner-1.jpg" alt="">
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="container_fullwidth">
+    <div class="container">
+        <div class="hot-products">
+            <h3 class="title">Sản Phẩm <strong>Nổi Bật</strong></h3>
+            <ul id="hot">
+                <li>
+                    <div class="row">
+                        @foreach (var sanPham in @ViewBag.listSanPham)
+                        {
+                            if (gioiHan > tongSanPham && sanPham.SoLuong != 0)
+                            {
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="products">
+                                        @if (sanPham.GiamGia != 0)
+                                        {
+                                            <div class="offer">-@sanPham.GiamGia%</div>
+                                        }
+                                        <div class="thumbnail" style="margin: 7px 0 5px 0;"><a href="@Url.Action("ThongTinSanPham", "Home", new {ID = sanPham.ID})"><img style="border-radius: 10px;" src="~/Content/images/SP/@sanPham.LinkHinhAnh" alt="Ten San Pham"></a></div>
+                                        <div class="productname" style="padding-top: 70px; height: 100px;">@sanPham.Name</div>
+                                        @{
+                                            string formattedPrice = string.Format("{0:N0}", sanPham.Gia);
+                                        }
+                                        <h4 class="price">@formattedPrice₫</h4>
+                                        <div class="button_group">
+                                            <button class="button add-cart" type="button" onclick="addToCart(@sanPham.ID)">Thêm vào giỏ</button>
+                                            <button class="button wishlist" type="button" onclick="addToCart()"><i class="fa fa-heart-o"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                tongSanPham++;
+                            }
+                        }
+                    </div>
+                </li>
+            </ul>
+        </div>
+        @{
+            tongSanPham = 0;
+        }
+        <div class="clearfix"></div>
+        <div class="featured-products">
+            <h3 class="title"><strong>Bàn</strong> Trang Trí</h3>
+            <ul id="featured">
+                <li>
+                    <div class="row">
+                        @foreach (var sanPham in @ViewBag.listSanPhamBan)
+                        {
+                            if (gioiHan > tongSanPham)
+                            {
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="products">
+                                        @if (sanPham.GiamGia != 0)
+                                        {
+                                            <div class="offer">-@sanPham.GiamGia%</div>
+                                        }
+                                        <div class="thumbnail" style="margin: 7px 0 5px 0;"><a href="@Url.Action("ThongTinSanPham", "Home", new {ID = sanPham.ID})"><img style="border-radius: 10px;" src="~/Content/images/SP/@sanPham.LinkHinhAnh" alt="Ten San Pham"></a></div>
+                                        <div class="productname" style="padding-top: 70px; height: 100px;">@sanPham.Name</div>
+                                        @{
+                                            string formattedPrice = string.Format("{0:N0}", sanPham.Gia);
+                                        }
+                                        <h4 class="price">@formattedPrice₫</h4>
+                                        <div class="button_group">
+                                            <button class="button add-cart" type="button" onclick="addToCart(@sanPham.ID)">Thêm vào giỏ</button>
+                                            <button class="button wishlist" type="button" onclick="addToCart()"><i class="fa fa-heart-o"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                tongSanPham++;
+                            }
+                        }
+                    </div>
+                </li>
+            </ul>
+        </div>
+        @{
+            tongSanPham = 0;
+        }
+        <div class="featured-products">
+            <h3 class="title">Đồ Trang Trí <strong>Phòng Khách</strong></h3>
+            <ul id="featured">
+                <li>
+                    <div class="row">
+                        @foreach (var sanPham in @ViewBag.listSanPhamByID)
+                        {
+                            if (gioiHan > tongSanPham)
+                            {
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="products">
+                                        @if (sanPham.GiamGia != 0)
+                                        {
+                                            <div class="offer">-@sanPham.GiamGia%</div>
+                                        }
+                                        <div class="thumbnail" style="margin: 7px 0 5px 0;"><a href="@Url.Action("ThongTinSanPham", "Home", new {ID = sanPham.ID})"><img style="border-radius: 10px;" src="~/Content/images/SP/@sanPham.LinkHinhAnh" alt="Ten San Pham"></a></div>
+                                        <div class="productname" style="padding-top: 70px; height: 100px;">@sanPham.Name</div>
+                                        @{
+                                            string formattedPrice = string.Format("{0:N0}", sanPham.Gia);
+                                        }
+                                        <h4 class="price">@formattedPrice₫</h4>
+                                        <div class="button_group">
+                                            <button class="button add-cart" type="button" onclick="addToCart(@sanPham.ID)">Thêm vào giỏ</button>
+                                            <button class="button wishlist" type="button" onclick="addToCart()"><i class="fa fa-heart-o"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                tongSanPham++;
+                            }
+                        }
+                    </div>
+                </li>
+            </ul>
+        </div>
+        @{
+            tongSanPham = 0;
+        }
+        <div class="clearfix"></div>
+        <div class="featured-products">
+            <h3 class="title">Đồng Hồ <strong>Treo Tường</strong></h3>
+            <ul id="featured">
+                <li>
+                    <div class="row">
+                        @foreach (var sanPham in @ViewBag.listSanPhamTheoMaLoaiSP)
+                        {
+                            if (gioiHan > tongSanPham)
+                            {
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="products">
+                                        @if (sanPham.GiamGia != 0)
+                                        {
+                                            <div class="offer">-@sanPham.GiamGia%</div>
+                                        }
+                                        <div class="thumbnail" style="margin: 7px 0 5px 0;"><a href="@Url.Action("ThongTinSanPham", "Home", new {ID = sanPham.ID})"><img style="border-radius: 10px;" src="~/Content/images/SP/@sanPham.LinkHinhAnh" alt="Ten San Pham"></a></div>
+                                        <div class="productname" style="padding-top: 70px; height: 100px;">@sanPham.Name</div>
+                                        @{
+                                            string formattedPrice = string.Format("{0:N0}", sanPham.Gia);
+                                        }
+                                        <h4 class="price">@formattedPrice₫</h4>
+                                        <div class="button_group">
+                                            <button class="button add-cart" type="button" onclick="addToCart(@sanPham.ID)">Thêm vào giỏ</button>
+                                            <button class="button wishlist" type="button" onclick="addToCart()"><i class="fa fa-heart-o"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                tongSanPham++;
+                            }
+                        }
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
